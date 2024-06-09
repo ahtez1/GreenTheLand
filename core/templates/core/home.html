@@ -1,0 +1,256 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="text-center px-6 py-6 bg-green-100 rounded-xl">
+        <h1 class="mb-12 text-5xl font-mono  font-semibold">GREEN REVOLUTION.</h1>
+        <h2 class="mb-12 text-3xl font-semibold justify-center">Welcome to the Green the Land Initiative! 🌿 Join us in the mission to empower high school graduates to make a difference by planting trees in primary schools. Our initiative not only advocates for climate change action but also educates the younger generation on the critical importance of preserving our planet. Together, we can create a greener future for all! 🌍</h2>
+        <h3 class="mb-12 text-3xl font-semibold">Join The Movement!</h3>
+        <div class="mt-10 flex items-center justify-center gap-x-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
+            <a href="{%  url 'signup' %}" class="rounded-full bg-green-800 px-7 py-4 text-xl font-semibold text-white shadow-sm hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Join Us</a>
+        </div>
+    </div>
+
+    
+
+   
+    <figure class="py-4 px-3 md:flex bg-slate-100 rounded-lg dark:bg-teal-800" width="120" height="122">
+        <img class="rounded-lg  mx-auto" src="{% static 'assets/mission2.jpg' %}" alt="" width="320" height="320">
+        <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+          <blockquote>
+            <p class="text-2xl text-center font-medium text-white">
+              “Through our initiative, we aim to raise awareness about climate change and its
+              devastating effects, while nurturing a sense of responsibility towards the planet in the younger generation.
+              
+              At GreenTheLand, we're on a mission to empower high school graduates to make
+              a tangible impact on the environment by planting trees in primary schools.
+              
+              Join us in creating a greener future for all”
+            </p>
+          </blockquote>
+          <figcaption class="font-medium">
+            <div class="text-2xl text-center text-white">
+              ~Antony
+            </div>
+          </figcaption>
+        </div>
+    </figure>
+
+
+
+    <!-- STATISTICS-SECTION -->
+    <div class="mt-6 px-6 py-12 bg-green-100 rounded-xl">
+        <h2 class="mb-12 text-4xl font-semibold text-center">Stats</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {% for stat in stats %}
+            <div class="border p-4 rounded-lg">
+                <p class="text-2xl text-center font-semibold text-black-600">{{ stat.trees_planted }}</p>
+                <h3 class="text-xl text-center font-semibold">Trees Planted</h3>
+            </div>
+            <div class="border p-4 rounded-lg">
+                <p class="text-2xl text-center font-semibold text-black-600">{{ stat.high_schools }}</p>
+                <h3 class="text-xl text-center font-semibold">High Schools Involved</h3>
+            </div>
+
+            <div class="border p-4 rounded-lg">
+                
+                <p class="text-2xl text-center font-semibold text-black-600">{{ stat.primary_schools }}</p>
+                <h3 class="text-xl text-center font-semibold">Primary Schools Involved</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <!-- GALLERY SECTION -->
+    <div class="gallery-wrap">
+            <img src="media/buttons/back.png" id="backBtn">
+            <div class="gallery">
+            {% for gallery in gallery %}
+            <div>
+                <span><img src="{{ gallery.image.url }}"></span>
+            </div>
+            {% endfor %}
+            </div>
+            <img src="media/buttons/next.png" id="nextBtn">
+                
+
+    </div>
+
+
+
+
+    <!-- FAQS Section -->
+    <div class="px-12 py-12 w-full overflow-hidden rounded-lg">
+        <h2 class="mb-12 text-3xl font-semibold text-center">FAQs</h2>
+        <div class="space-y-4">
+            {% for faq in faqs %}
+            <div class="border p-4 rounded-lg bg-white shadow-md max-w-lg mx-auto">
+                <button class="flex justify-between items-center text-lg font-semibold text-black-600 w-full text-left focus:outline-none" onclick="toggleAnswer({{ forloop.counter0 }})">
+                    {{ faq.question }}
+                    <span id="arrow-{{ forloop.counter0 }}" class="transform transition-transform duration-300">&gt;</span>
+                </button>
+                <div id="answer-{{ forloop.counter0 }}" class="hidden mt-2 text-gray-700">
+                    <p class="text-base">{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script>
+    function toggleAnswer(index) {
+        var answerElement = document.getElementById('answer-' + index);
+        var arrowElement = document.getElementById('arrow-' + index);
+    
+        // Hide the answer of the previously clicked FAQ
+        var allAnswerElements = document.querySelectorAll('[id^="answer-"]');
+        var allArrowElements = document.querySelectorAll('[id^="arrow-"]');
+        for (var i = 0; i < allAnswerElements.length; i++) {
+            if (i != index) {
+                allAnswerElements[i].classList.add('hidden');
+                allArrowElements[i].classList.remove('rotate-90');
+            }
+        }
+    
+        // Toggle visibility of the clicked FAQ's answer
+        if (answerElement.classList.contains('hidden')) {
+            answerElement.classList.remove('hidden');
+            arrowElement.classList.add('rotate-90');
+        } else {
+            answerElement.classList.add('hidden');
+            arrowElement.classList.remove('rotate-90');
+        }
+    }
+    </script>
+    
+    
+
+
+    <!-- News Updates Section -->
+    <div class="px-12 py-12 w-full overflow-hidden rounded-lg ">
+        <h2 class="mb-12 text-3xl font-semibold text-center">EVENTS</h2>
+        <div class="space-y-4">
+            {% for news in news %}
+            <div class="border p-4 rounded-lg bg-white shadow-md max-w-lg mx-auto relative">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-black-600">{{ news.title }}</h3>
+                        <p class="text-sm text-gray-500">{{ news.created_at }}</p>
+                    </div>
+                </div>
+                <div id="content-update-{{ forloop.counter0 }}" class="hidden mt-2 text-gray-700">
+                    <p class="text-base">{{ news.description }}</p>
+                    {% if news.pics %}
+                    <div class="mt-4">
+                        <img src="{{ news.pics.url }}" alt="{{ news.title }}" class="w-full rounded-lg">
+                    </div>
+                    {% endif %}
+                </div>
+                <a id="read-more-{{ forloop.counter0 }}" class="absolute bottom-4 right-4 text-blue-500 font-semibold text-sm cursor-pointer focus:outline-none" onclick="toggleUpdate({{ forloop.counter0 }})">
+                    Read More
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script>
+    function toggleUpdate(index) {
+        var contentElement = document.getElementById('content-update-' + index);
+        var readMoreLink = document.getElementById('read-more-' + index);
+        
+        // Hide "Read More" link after click
+        readMoreLink.style.display = 'none';
+        
+        // Hide content of all other news items
+        var allContentElements = document.querySelectorAll('[id^="content-update-"]');
+        for (var i = 0; i < allContentElements.length; i++) {
+            if (i != index) {
+                allContentElements[i].classList.add('hidden');
+            }
+        }
+        
+        // Toggle visibility of clicked news item
+        if (contentElement.classList.contains('hidden')) {
+            contentElement.classList.remove('hidden');
+        } else {
+            contentElement.classList.add('hidden');
+        }
+    }
+    </script>
+    
+    
+    
+    
+
+
+
+    <!-- feedbacks-section -->
+    <h1 class="text-3xl font-semibold text-center mt-12 mb-6">Feedback</h1>
+    <div class="feedback-slideshow-container relative max-w-screen-lg mx-auto">
+        {% for fb in feedback %}
+        <div class="feedback-slide fade flex flex-col items-center bg-white p-6 rounded-lg shadow-md mb-6">
+            <img src="{{ fb.pics.url }}" alt="Feedback Image" class="feedback-img rounded-lg mb-4">
+            <blockquote class="feedback-text text-center">
+                <p class="text-2xl font-medium text-gray-800">“{{ fb.description }}”</p>
+            </blockquote>
+            <figcaption class="font-medium mt-4">
+                <div class="text-xl text-gray-700">~ {{ fb.name }}</div>
+            </figcaption>
+        </div>
+        {% endfor %}
+        
+        <!-- Next and previous buttons -->
+        <a class="feedback-prev absolute top-1/2 left-0 transform -translate-y-1/2 text-2xl font-bold cursor-pointer" onclick="changeFeedbackSlide(-1)">&#10094;</a>
+        <a class="feedback-next absolute top-1/2 right-0 transform -translate-y-1/2 text-2xl font-bold cursor-pointer" onclick="changeFeedbackSlide(1)">&#10095;</a>
+    </div>
+    <br>
+    <!-- Dots/circles -->
+    <div style="text-align:center">
+        {% for fb in feedback %}
+        <span class="feedback-dot cursor-pointer inline-block h-2 w-2 rounded-full bg-gray-400 mx-1" onclick="setFeedbackSlide({{ forloop.counter }})"></span>
+        {% endfor %}
+    </div>
+
+    <script>
+    let feedbackIndex = 0;
+    showFeedbackSlide(feedbackIndex);
+
+    function changeFeedbackSlide(n) {
+        showFeedbackSlide(feedbackIndex += n);
+    }
+
+    function setFeedbackSlide(n) {
+        showFeedbackSlide(feedbackIndex = n - 1);
+    }
+
+    function showFeedbackSlide(n) {
+        let i;
+        let slides = document.getElementsByClassName("feedback-slide");
+        let dots = document.getElementsByClassName("feedback-dot");
+        if (n >= slides.length) { feedbackIndex = 0 }
+        if (n < 0) { feedbackIndex = slides.length - 1 }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" bg-gray-700", "");
+        }
+        slides[feedbackIndex].style.display = "flex";
+        dots[feedbackIndex].className += " bg-gray-700";
+    }
+    </script>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}

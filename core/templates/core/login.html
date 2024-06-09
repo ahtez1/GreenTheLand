@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding-bottom: 0; /* Removed extra padding */
+    }
+
+    .card {
+        background-color: #d4d4d4;
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(83, 2, 2, 0.1);
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .card h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #000000;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #0a0d0f;
+        border-radius: 5px;
+        font-size: 1em;
+        background: #f2f2f2;
+    }
+
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 1em;
+        cursor: pointer;
+        background-color: #008000;
+    }
+
+    .btn-primary:hover {
+        background-color: #006400;
+    }
+</style>
+
+<!-- Container for the login form -->
+<div class="form-container">
+    <div class="card">
+        <h2 class="mb-12 text-3xl font-semibold text-center text-black-500">Log in</h2>
+        <!-- Login form -->
+        <form id="login" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label>
+                {{ form.password }}
+            </div>
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.non_field_errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div> 
+            {% endif %}
+            
+            <button class="btn btn-primary bg-green-500 rounded-full" type="submit">Log in</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

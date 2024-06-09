@@ -1,0 +1,121 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Ensure the entire page is non-scrollable and fully covers the screen */
+    html, body {
+        overflow: hidden;
+        height: 100%;
+        margin: 0;
+    }
+    
+    /* Style for the form container to center the card */
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding-top: 0;
+        padding-bottom: 550px; /* Adjust this value as needed */
+    }
+
+    /* Style for the card containing the form */
+    .card {
+        background-color: #e4e4e4;
+        padding: 30px 40px;
+        padding-top: 1em;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(83, 2, 2, 0.1);
+        max-width: 500px;
+        max-height: 600px;
+        width: 100%;
+        height: 525px;
+    }
+
+
+    /* Style for the card heading */
+    .card h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #000000;
+    }
+
+    /* Style for the form controls (input, select, textarea) */
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #0a0d0f;
+        border-radius: 5px;
+        font-size: 1em;
+        
+    }
+
+    /* Style for the form control focus state */
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 1em;
+        cursor: pointer;
+        margin-left: 36%;
+        background-color: #008000; /* Adjusted button color */
+    }
+
+    /* Style for the submit button hover state */
+    .btn-primary:hover {
+        background-color: #006400; /* Adjusted hover color */
+    }
+</style>
+
+<!-- Container for the sign-up form -->
+<div class="form-container">
+    <div class="card">
+        <h2 class="mb-12 text-3xl font-semibold text-center text-black-500">Sign Up</h2>
+        <!-- Sign-up form -->
+        <form id="signup" method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Email</label>
+                {{ form.email }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label>
+                {{ form.password1 }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Confirm password</label>
+                {{ form.password2 }}
+            </div>
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.non_field_errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div> 
+            {% endif %}    
+            <!-- <button class="btn btn-primary" type="submit">Sign Up</button> -->
+            <button class="btn btn-primary bg-green-500 rounded-full" type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
