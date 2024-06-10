@@ -1,0 +1,61 @@
+.gallery{
+    width: 900px;
+    display: flex;
+    overflow-x: scroll;
+
+}
+
+.gallery div{
+    width: 100%;
+    display: -ms-grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 10px;
+    flex: none;
+    margin-left: 48px;
+
+}
+
+.gallery div img{
+    width: 70%;
+    filter: grayscale(50%);
+    transition: transform 0.5s;
+    grid-template-rows: auto auto auto;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+
+.gallery::-webkit-scrollbar{
+    display: none;
+}
+
+
+.gallery-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5% auto;
+    
+    
+
+}
+
+#backBtn, #nextBtn{
+    width: 40px;
+    cursor: pointer;
+    margin: 50px;
+    transition: transform 0.3s ease;
+
+}
+
+#backBtn:hover, #nextBtn:hover {
+    transform: scale(1.2); /* Enlarge the buttons on hover */
+}
+
+
+.gallery div img:hover{
+    filter: grayscale(0);
+    cursor: pointer;
+    transform: scale(1.1);
+}
