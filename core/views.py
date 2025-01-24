@@ -29,7 +29,7 @@ def Signup(request):
 
         if form.is_valid():
             form.save()
-            return redirect('/contact/')
+            return redirect('/login/')
     else:
         form = SignupForm()
 
